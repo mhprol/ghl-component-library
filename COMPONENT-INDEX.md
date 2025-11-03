@@ -6,6 +6,28 @@
 
 ---
 
+## Global Setup (One-Time Configuration)
+
+**IMPORTANT**: Before using any components, add this code to your GHL site's global header:
+
+**Location**: GHL Site Settings → Tracking Code → Header Code
+
+```html
+<!-- Load React & ReactDOM from CDN -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+<!-- Load Component Library (UPDATE THIS URL after CloudFlare deployment) -->
+<link href="https://YOUR-PROJECT.pages.dev/style.css" rel="stylesheet">
+<script src="https://YOUR-PROJECT.pages.dev/components.js"></script>
+```
+
+**Replace `YOUR-PROJECT.pages.dev`** with your actual CloudFlare Pages URL after deployment.
+
+**This loads once globally** - all pages inherit these scripts. After this setup, you can use any component on any page using custom code blocks.
+
+---
+
 ## Header
 
 **Description**: Responsive navigation header with logo, menu items, and CTA button. Includes mobile hamburger menu.
@@ -155,5 +177,6 @@
 - Hero component with dual CTAs
 - CTA component with icon support
 - Footer component with multi-column layout
-- React 19 + TypeScript + Tailwind CSS
-- CloudFlare Pages deployment
+- React 18 + TypeScript + Tailwind CSS
+- pnpm dependency management
+- CloudFlare Pages deployment ready
