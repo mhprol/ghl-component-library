@@ -2,9 +2,10 @@
 
 React component library for GoHighLevel custom code blocks - deployed via CloudFlare Pages CDN.
 
-**Stack**: React 19 + TypeScript + Tailwind CSS + Vite  
+**Stack**: React 18 + TypeScript + Tailwind CSS + Vite  
 **Hosting**: CloudFlare Pages (Free Tier)  
-**CI/CD**: GitHub Actions (Auto-deploy on push)
+**CI/CD**: GitHub Actions (Auto-deploy on push)  
+**CDN**: https://1416326d.ghl-component-library.pages.dev/
 
 ---
 
@@ -23,7 +24,7 @@ See [COMPONENT-INDEX.md](./COMPONENT-INDEX.md) for full component documentation 
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
+- pnpm (install: `npm install -g pnpm`)
 
 ### Local Development
 
@@ -33,14 +34,14 @@ git clone https://github.com/mhprol/ghl-component-library.git
 cd ghl-component-library
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start dev server
-npm run dev
+pnpm run dev
 # Visit http://localhost:5173
 
 # Build for production
-npm run build
+pnpm run build
 # Output in dist/ directory
 ```
 
@@ -54,14 +55,12 @@ Add this to **GHL Site Settings → Tracking Code → Header**:
 
 ```html
 <!-- Load React & ReactDOM -->
-<script crossorigin src="https://unpkg.com/react@19/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@19/umd/react-dom.production.min.js"></script>
-
-<!-- Load Tailwind CSS -->
-<link href="https://ghl-components.pages.dev/style.css" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
 <!-- Load Component Library -->
-<script src="https://ghl-components.pages.dev/components.js"></script>
+<link href="https://1416326d.ghl-component-library.pages.dev/style.css" rel="stylesheet">
+<script src="https://1416326d.ghl-component-library.pages.dev/components.js"></script>
 ```
 
 ### Per-Component Usage (In Custom Code Block)
@@ -109,7 +108,7 @@ echo "export * from './NewComponent'" >> src/components/index.ts
 # Add to window.GHLComponents
 
 # 6. Test locally
-npm run dev
+pnpm run dev
 
 # 7. Commit and push
 git add .
@@ -131,7 +130,7 @@ git checkout -b fix/component-issue
 # Update Component.tsx or Component.types.ts
 
 # 3. Test locally
-npm run dev
+pnpm run dev
 
 # 4. Commit, push, PR, merge
 # CloudFlare auto-deploys
@@ -179,14 +178,14 @@ Configured in `vite.config.ts`:
 1. CloudFlare Dashboard → Pages → Create Project
 2. Connect to GitHub → Select `ghl-component-library`
 3. Build settings:
-   - Build command: `npm run build`
+   - Build command: `pnpm run build`
    - Output directory: `dist`
 4. Deploy
 
 **Auto-Deployment**:
 - Every push to `main` triggers GitHub Actions
 - Workflow builds project and deploys to CloudFlare
-- Components available at: `https://ghl-components.pages.dev`
+- Components available at: https://1416326d.ghl-component-library.pages.dev/
 
 **GitHub Secrets Required**:
 - `CLOUDFLARE_API_TOKEN`
@@ -223,6 +222,7 @@ ghl-component-library/
 ├── tailwind.config.ts
 ├── tsconfig.json
 ├── package.json
+├── pnpm-lock.yaml            # pnpm lock file
 ├── COMPONENT-INDEX.md        # Component docs
 └── README.md
 ```
@@ -231,11 +231,12 @@ ghl-component-library/
 
 ## Tech Stack
 
-- **React 19**: UI framework
+- **React 18**: UI framework (stable)
 - **TypeScript**: Type safety
 - **Tailwind CSS**: Utility-first styling
 - **Lucide React**: Icon library
 - **Vite**: Build tool
+- **pnpm**: Package manager (solves npm Rollup bug on Windows)
 - **CloudFlare Pages**: CDN hosting (free)
 - **GitHub Actions**: CI/CD
 
@@ -271,8 +272,14 @@ ghl-component-library/
 
 ### Build Failures
 1. Check GitHub Actions logs
-2. Run `npm run build` locally to reproduce
+2. Run `pnpm run build` locally to reproduce
 3. Common issues: TypeScript errors, missing deps
+
+### npm Rollup Bug (Windows)
+If you encounter Rollup native binary errors with npm:
+- **Solution**: Use pnpm instead (`npm install -g pnpm`)
+- **Why**: npm has a bug with optional dependencies on Windows
+- **Status**: pnpm is locked in package.json as the official package manager
 
 ---
 
@@ -297,7 +304,9 @@ Private - Internal use only
 ### v1.0.0 (2025-11-03)
 - Initial release
 - 4 core components (Header, Hero, CTA, Footer)
-- CloudFlare Pages deployment
+- React 18 + TypeScript + Tailwind CSS
+- pnpm dependency management (solves npm Rollup bug)
+- CloudFlare Pages deployment: https://1416326d.ghl-component-library.pages.dev/
 - GitHub Actions CI/CD
 - Comprehensive documentation
 

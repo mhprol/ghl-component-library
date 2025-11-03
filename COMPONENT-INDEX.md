@@ -2,7 +2,8 @@
 
 **Version**: v1.0.0  
 **Last Updated**: 2025-11-03  
-**Total Components**: 4
+**Total Components**: 4  
+**CDN**: https://1416326d.ghl-component-library.pages.dev/
 
 ---
 
@@ -17,12 +18,10 @@
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-<!-- Load Component Library (UPDATE THIS URL after CloudFlare deployment) -->
-<link href="https://YOUR-PROJECT.pages.dev/style.css" rel="stylesheet">
-<script src="https://YOUR-PROJECT.pages.dev/components.js"></script>
+<!-- Load Component Library -->
+<link href="https://1416326d.ghl-component-library.pages.dev/style.css" rel="stylesheet">
+<script src="https://1416326d.ghl-component-library.pages.dev/components.js"></script>
 ```
-
-**Replace `YOUR-PROJECT.pages.dev`** with your actual CloudFlare Pages URL after deployment.
 
 **This loads once globally** - all pages inherit these scripts. After this setup, you can use any component on any page using custom code blocks.
 
@@ -179,4 +178,4 @@
 - Footer component with multi-column layout
 - React 18 + TypeScript + Tailwind CSS
 - pnpm dependency management
-- CloudFlare Pages deployment ready
+- CloudFlare Pages deployed: https://1416326d.ghl-component-library.pages.dev/
