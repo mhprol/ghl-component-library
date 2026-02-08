@@ -1,315 +1,170 @@
 # GHL Component Library
 
-React component library for GoHighLevel custom code blocks - deployed via CloudFlare Pages CDN.
+A high-performance React component library designed to enhance GoHighLevel (GHL) websites with custom, interactive, and responsive UI elements.
 
-**Stack**: React 18 + TypeScript + Tailwind CSS + Vite  
-**Hosting**: CloudFlare Pages (Free Tier)  
-**CI/CD**: GitHub Actions (Auto-deploy on push)  
-**CDN**: https://1416326d.ghl-component-library.pages.dev/
-
----
-
-## Components
-
-- **Header**: Responsive navigation with mobile menu
-- **Hero**: Full-width hero section with dual CTAs
-- **CTA**: Call-to-action blocks for conversions
-- **Footer**: Multi-column footer with social links
-
-See [COMPONENT-INDEX.md](./COMPONENT-INDEX.md) for full component documentation and usage examples.
+**Current Version**: v1.0.0
+**Status**: Active Development
+**Hosting**: [CloudFlare Pages](https://1416326d.ghl-component-library.pages.dev/)
 
 ---
 
-## Quick Start
+## 🎯 Project Overview
+
+This library provides a suite of pre-built React components (Headers, Heroes, CTAs, Footers) that can be easily integrated into any GoHighLevel site using custom code blocks. It solves the limitation of GHL's native builder by offering fully customizable, code-based components that maintain a consistent design system.
+
+**Who is this for?**
+- Developers building custom GHL sites who need more flexibility than the drag-and-drop builder offers.
+- Agencies looking to standardize their web development workflow on GHL.
+
+---
+
+## ✨ Features
+
+- **React 18**: Leveraging the latest React features for optimal performance.
+- **TypeScript**: Strictly typed components for robust and error-free development.
+- **Tailwind CSS**: Utility-first styling for rapid, responsive design.
+- **Vite**: Ultra-fast build tool bundling everything into a single UMD file.
+- **CloudFlare Pages**: Blazing fast global CDN delivery.
+- **Zero-Config GHL Integration**: Simply copy-paste script tags to get started.
+
+---
+
+## 🚀 Installation & Local Development
+
+This project uses **pnpm** for package management to ensure consistent dependency resolution (and avoid Windows-specific npm bugs).
 
 ### Prerequisites
 - Node.js 18+
-- pnpm (install: `npm install -g pnpm`)
+- pnpm (`npm install -g pnpm`)
 
-### Local Development
+### Setup
 
-```bash
-# Clone repository
-git clone https://github.com/mhprol/ghl-component-library.git
-cd ghl-component-library
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mhprol/ghl-component-library.git
+   cd ghl-component-library
+   ```
 
-# Install dependencies
-pnpm install
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-# Start dev server
-pnpm run dev
-# Visit http://localhost:5173
+3. **Start development server**
+   ```bash
+   pnpm run dev
+   ```
+   Open [http://localhost:5173](http://localhost:5173) to view the development playground.
 
-# Build for production
-pnpm run build
-# Output in dist/ directory
-```
+4. **Build for production**
+   ```bash
+   pnpm run build
+   ```
+   This generates `dist/components.js` and `dist/style.css`.
 
 ---
 
-## GHL Integration
+## 🔌 GHL Integration
 
-### One-Time Setup (Per GHL Site)
+To use these components on a GoHighLevel site, add the following code to the global site settings.
 
-Add this to **GHL Site Settings → Tracking Code → Header**:
+**Location**: GHL Site Settings → Tracking Code → Header Code
 
 ```html
-<!-- Load React & ReactDOM -->
+<!-- 1. Load React & ReactDOM (Required Dependencies) -->
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-<!-- Load Component Library -->
+<!-- 2. Load Component Library (Styles & Script) -->
 <link href="https://1416326d.ghl-component-library.pages.dev/style.css" rel="stylesheet">
 <script src="https://1416326d.ghl-component-library.pages.dev/components.js"></script>
 ```
 
-### Per-Component Usage (In Custom Code Block)
+---
+
+## 💻 Usage
+
+Once integrated, you can render any component using a Custom Code element in the GHL page builder.
+
+### Example: Adding a Hero Section
+
+1. **Add a Custom Code element** where you want the component to appear.
+2. **Paste the following code**:
 
 ```html
-<!-- 1. Create container -->
+<!-- Container with a unique ID -->
 <div id="hero-section"></div>
 
-<!-- 2. Initialize component -->
+<!-- Render Script -->
 <script>
   window.GHLComponents.render('Hero', 'hero-section', {
-    headline: "Your Headline Here",
-    subheadline: "Supporting text here",
-    ctaText: "Get Started",
-    ctaLink: "/contact"
+    headline: "Transform Your Business with AI",
+    subheadline: "Automate your workflow and scale faster than ever before.",
+    ctaText: "Get Started Free",
+    ctaLink: "/signup",
+    backgroundImage: "https://source.unsplash.com/random/1920x1080/?business"
   });
 </script>
 ```
 
-See [COMPONENT-INDEX.md](./COMPONENT-INDEX.md) for all component props and examples.
+---
+
+## 📚 Component Catalog
+
+| Component | Description | Key Props |
+| :--- | :--- | :--- |
+| **[Header](./COMPONENT-INDEX.md#header)** | Responsive navigation bar with mobile menu support. | `logo`, `menuItems`, `ctaText`, `ctaLink` |
+| **[Hero](./COMPONENT-INDEX.md#hero)** | Full-width hero section with headline, subhead, and dual CTAs. | `headline`, `subheadline`, `backgroundImage`, `ctaText` |
+| **[CTA](./COMPONENT-INDEX.md#cta)** | High-conversion call-to-action block with optional icon. | `headline`, `description`, `ctaText`, `icon` |
+| **[Footer](./COMPONENT-INDEX.md#footer)** | Multi-column footer with social links and copyright. | `siteName`, `columns`, `socialLinks`, `copyrightText` |
+
+For detailed documentation on props and more examples, see **[COMPONENT-INDEX.md](./COMPONENT-INDEX.md)**.
 
 ---
 
-## Development Workflow
+## 🤝 Contributing
 
-### Creating New Component
+We welcome contributions! This project is maintained internally by Caiçara Marketing Digital, but improvements are always welcome.
 
-```bash
-# 1. Create branch
-git checkout -b feat/new-component
+### Workflow
+1. **Fork & Clone**: Clone the repo locally.
+2. **Branch**: Create a feature branch (`git checkout -b feat/amazing-feature`).
+3. **Develop**:
+   - Create new components in `src/components/<ComponentName>`.
+   - Ensure you export them in `src/components/index.ts`.
+   - Add types in `<ComponentName>.types.ts`.
+4. **Test**: Run `pnpm run dev` to test your changes.
+5. **Commit**: Use conventional commit messages (e.g., `feat: add Testimonial component`).
+6. **Push & PR**: Push to your branch and open a Pull Request.
 
-# 2. Create component files
-mkdir -p src/components/NewComponent
-touch src/components/NewComponent/{NewComponent.tsx,NewComponent.types.ts,index.ts}
-
-# 3. Write component code
-# - NewComponent.tsx (React component)
-# - NewComponent.types.ts (TypeScript interfaces)
-# - index.ts (barrel export)
-
-# 4. Export from barrel
-echo "export * from './NewComponent'" >> src/components/index.ts
-
-# 5. Register in main.tsx
-# Add to window.GHLComponents
-
-# 6. Test locally
-pnpm run dev
-
-# 7. Commit and push
-git add .
-git commit -m "feat: add NewComponent"
-git push origin feat/new-component
-
-# 8. Create and merge PR
-# CloudFlare auto-deploys on merge to main
-```
-
-### Updating Existing Component
-
-```bash
-# 1. Branch from main
-git checkout main && git pull
-git checkout -b fix/component-issue
-
-# 2. Edit component
-# Update Component.tsx or Component.types.ts
-
-# 3. Test locally
-pnpm run dev
-
-# 4. Commit, push, PR, merge
-# CloudFlare auto-deploys
-```
+### Code Style
+- Use **TypeScript** for all components.
+- Use **Tailwind CSS** for styling (avoid custom CSS files if possible).
+- Ensure components are responsive.
 
 ---
 
-## Architecture
+## 📄 License
 
-### Build Output
+**Private - Internal Use Only**
 
-Vite compiles to:
-- `dist/components.js` - UMD bundle (React externalized)
-- `dist/style.css` - Compiled Tailwind CSS
-
-### Global API
-
-Components are exposed on `window.GHLComponents`:
-
-```javascript
-window.GHLComponents = {
-  Header: [React Component],
-  Hero: [React Component],
-  CTA: [React Component],
-  Footer: [React Component],
-  render: function(component, elementId, props)
-}
-```
-
-### Library Mode
-
-Configured in `vite.config.ts`:
-- Format: UMD (universal module definition)
-- External: React, ReactDOM (loaded separately)
-- Output: Single `components.js` file
-- Global name: `GHLComponents`
+Property of **Caiçara Marketing Digital**. Unauthorized reproduction or distribution is prohibited.
 
 ---
 
-## Deployment
+## 🔧 Troubleshooting
 
-### CloudFlare Pages Setup
+### Component Not Rendering?
+1. Check the browser console (F12) for errors.
+2. Ensure `React` and `ReactDOM` are loaded **before** the component library.
+3. Verify the `id` in your HTML matches the one passed to `render()`.
 
-**Initial Setup** (One-Time):
-1. CloudFlare Dashboard → Pages → Create Project
-2. Connect to GitHub → Select `ghl-component-library`
-3. Build settings:
-   - Build command: `pnpm run build`
-   - Output directory: `dist`
-4. Deploy
+### Styles Not Applying?
+1. Check if `style.css` is loaded in the Network tab.
+2. Ensure no GHL native styles are overriding the component classes (use `!important` in Tailwind config if necessary, or specific selectors).
 
-**Auto-Deployment**:
-- Every push to `main` triggers GitHub Actions
-- Workflow builds project and deploys to CloudFlare
-- Components available at: https://1416326d.ghl-component-library.pages.dev/
-
-**GitHub Secrets Required**:
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-See CloudFlare dashboard for API token and account ID.
+### Build Errors?
+- If you see Rollup errors on Windows, ensure you are using **pnpm** instead of npm.
 
 ---
-
-## Project Structure
-
-```
-ghl-component-library/
-├── src/
-│   ├── components/           # React components
-│   │   ├── Header/
-│   │   │   ├── Header.tsx
-│   │   │   ├── Header.types.ts
-│   │   │   └── index.ts
-│   │   ├── Hero/
-│   │   ├── CTA/
-│   │   ├── Footer/
-│   │   └── index.ts          # Barrel exports
-│   ├── lib/
-│   │   └── utils.ts          # cn() helper
-│   ├── styles/
-│   │   └── index.css         # Tailwind imports
-│   └── main.tsx              # Global registration
-├── .github/
-│   └── workflows/
-│       └── deploy.yml        # CI/CD
-├── dist/                     # Build output (git-ignored)
-├── vite.config.ts
-├── tailwind.config.ts
-├── tsconfig.json
-├── package.json
-├── pnpm-lock.yaml            # pnpm lock file
-├── COMPONENT-INDEX.md        # Component docs
-└── README.md
-```
-
----
-
-## Tech Stack
-
-- **React 18**: UI framework (stable)
-- **TypeScript**: Type safety
-- **Tailwind CSS**: Utility-first styling
-- **Lucide React**: Icon library
-- **Vite**: Build tool
-- **pnpm**: Package manager (solves npm Rollup bug on Windows)
-- **CloudFlare Pages**: CDN hosting (free)
-- **GitHub Actions**: CI/CD
-
----
-
-## Costs
-
-**CloudFlare Pages Free Tier**:
-- ✅ Unlimited sites
-- ✅ Unlimited bandwidth
-- ✅ Unlimited requests
-- ✅ 500 builds/month
-- ✅ Custom domains
-
-**Current Usage**: ~20-50 builds/month  
-**Cost**: $0/month
-
----
-
-## Troubleshooting
-
-### Component Not Rendering
-1. Check browser console for errors
-2. Verify React/ReactDOM loaded (Network tab)
-3. Verify component library loaded
-4. Verify container div exists
-5. Verify component name matches registration
-
-### Styles Not Applying
-1. Check if `style.css` loaded (Network tab)
-2. Check for CSS conflicts with GHL defaults
-3. Use browser inspector to verify classes
-
-### Build Failures
-1. Check GitHub Actions logs
-2. Run `pnpm run build` locally to reproduce
-3. Common issues: TypeScript errors, missing deps
-
-### npm Rollup Bug (Windows)
-If you encounter Rollup native binary errors with npm:
-- **Solution**: Use pnpm instead (`npm install -g pnpm`)
-- **Why**: npm has a bug with optional dependencies on Windows
-- **Status**: pnpm is locked in package.json as the official package manager
-
----
-
-## Contributing
-
-This is a private library for Caiçara Marketing Digital internal use.
-
-**Maintainer**: Matheus Prol  
-**Organization**: Caiçara Marketing Digital  
-**Purpose**: GHL-based web development standardization
-
----
-
-## License
-
-Private - Internal use only
-
----
-
-## Version History
-
-### v1.0.0 (2025-11-03)
-- Initial release
-- 4 core components (Header, Hero, CTA, Footer)
-- React 18 + TypeScript + Tailwind CSS
-- pnpm dependency management (solves npm Rollup bug)
-- CloudFlare Pages deployment: https://1416326d.ghl-component-library.pages.dev/
-- GitHub Actions CI/CD
-- Comprehensive documentation
-
----
-
-**Need Help?** Check [COMPONENT-INDEX.md](./COMPONENT-INDEX.md) for component usage or TECHNICAL-ARCHITECTURE.md in the parent project for full architecture details.
+*Maintained by Matheus Prol*
