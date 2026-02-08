@@ -1,5 +1,7 @@
 # GHL Component Library
 
+[**AI Manual**](./AI-MANUAL.md) | [**Repository**](https://github.com/mhprol/ghl-component-library) | [**Contributing**](#-contributing) | [**License**](#-license)
+
 A high-performance React component library designed to enhance GoHighLevel (GHL) websites with custom, interactive, and responsive UI elements.
 
 **Current Version**: v1.0.0
@@ -29,38 +31,54 @@ This library provides a suite of pre-built React components (Headers, Heroes, CT
 
 ---
 
-## 🚀 Installation & Local Development
+## 🚀 Installation & Setup
 
-This project uses **pnpm** for package management to ensure consistent dependency resolution (and avoid Windows-specific npm bugs).
+This project assumes **Node.js 18+**. We recommend using **pnpm** for dependency management, but `npm` and `yarn` are also supported.
 
 ### Prerequisites
-- Node.js 18+
-- pnpm (`npm install -g pnpm`)
 
-### Setup
+- Node.js 18 or higher
+- Package Manager: `pnpm` (recommended), `npm`, or `yarn`
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mhprol/ghl-component-library.git
-   cd ghl-component-library
-   ```
+### Quick Start Guide
 
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   ```
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/mhprol/ghl-component-library.git
+    cd ghl-component-library
+    ```
 
-3. **Start development server**
-   ```bash
-   pnpm run dev
-   ```
-   Open [http://localhost:5173](http://localhost:5173) to view the development playground.
+2.  **Install dependencies**
 
-4. **Build for production**
-   ```bash
-   pnpm run build
-   ```
-   This generates `dist/components.js` and `dist/style.css`.
+    Using pnpm (recommended):
+    ```bash
+    pnpm install
+    ```
+
+    Using npm:
+    ```bash
+    npm install
+    ```
+
+    Using yarn:
+    ```bash
+    yarn install
+    ```
+
+3.  **Start the development server**
+    ```bash
+    pnpm dev
+    # or npm run dev
+    # or yarn dev
+    ```
+
+    The playground will be available at [http://localhost:5173](http://localhost:5173).
+
+4.  **Build for production**
+    ```bash
+    pnpm build
+    ```
+    This generates the `dist/` folder containing `components.js` (UMD bundle) and `style.css`.
 
 ---
 
@@ -79,6 +97,30 @@ To use these components on a GoHighLevel site, add the following code to the glo
 <link href="https://1416326d.ghl-component-library.pages.dev/style.css" rel="stylesheet">
 <script src="https://1416326d.ghl-component-library.pages.dev/components.js"></script>
 ```
+
+## 🔌 Integration in React Projects
+
+While this library is primarily distributed as a UMD build for GHL, you can easily use these components in standard React projects (Next.js, Vite, Create React App) by copying the source code.
+
+1.  **Copy Components**: Copy the desired component folder (e.g., `src/components/Header`) to your project.
+2.  **Install Dependencies**: Ensure you have the required peer dependencies installed:
+    ```bash
+    npm install lucide-react clsx tailwind-merge
+    ```
+3.  **Import & Use**:
+    ```tsx
+    import { Header } from './components/Header';
+
+    export default function App() {
+      return (
+        <Header
+          logo="/logo.png"
+          ctaText="Get Started"
+          ctaLink="/signup"
+        />
+      );
+    }
+    ```
 
 ---
 
@@ -111,14 +153,77 @@ Once integrated, you can render any component using a Custom Code element in the
 
 ## 📚 Component Catalog
 
-| Component | Description | Key Props |
-| :--- | :--- | :--- |
-| **[Header](./COMPONENT-INDEX.md#header)** | Responsive navigation bar with mobile menu support. | `logo`, `menuItems`, `ctaText`, `ctaLink` |
-| **[Hero](./COMPONENT-INDEX.md#hero)** | Full-width hero section with headline, subhead, and dual CTAs. | `headline`, `subheadline`, `backgroundImage`, `ctaText` |
-| **[CTA](./COMPONENT-INDEX.md#cta)** | High-conversion call-to-action block with optional icon. | `headline`, `description`, `ctaText`, `icon` |
-| **[Footer](./COMPONENT-INDEX.md#footer)** | Multi-column footer with social links and copyright. | `siteName`, `columns`, `socialLinks`, `copyrightText` |
+| Component | Purpose | Props Summary | Example Usage |
+| :--- | :--- | :--- | :--- |
+| **[Header](./COMPONENT-INDEX.md#header)** | Primary site navigation with mobile menu & CTA. | `logo`, `menuItems`, `ctaText`, `ctaLink`, `className` | [View Usage](./COMPONENT-INDEX.md#header) |
+| **[Hero](./COMPONENT-INDEX.md#hero)** | High-impact intro section with dual CTAs & background support. | `headline`, `subheadline`, `backgroundImage`, `ctaText`, `secondaryCtaText` | [View Usage](./COMPONENT-INDEX.md#hero) |
+| **[CTA](./COMPONENT-INDEX.md#cta)** | Dedicated conversion block for mid-page calls to action. | `headline`, `description`, `ctaText`, `ctaLink`, `icon`, `backgroundColor` | [View Usage](./COMPONENT-INDEX.md#cta) |
+| **[Footer](./COMPONENT-INDEX.md#footer)** | Comprehensive footer with links, social icons, and copyright. | `siteName`, `columns`, `socialLinks`, `copyrightText`, `backgroundColor` | [View Usage](./COMPONENT-INDEX.md#footer) |
 
 For detailed documentation on props and more examples, see **[COMPONENT-INDEX.md](./COMPONENT-INDEX.md)**.
+
+---
+
+## 🎨 Theming & Customization
+
+This library is built with **Tailwind CSS**, making it highly customizable.
+
+### Customizing via Props
+Most components accept a `className` prop, allowing you to append any valid Tailwind utility class.
+
+```javascript
+window.GHLComponents.render('Hero', 'hero-id', {
+  // ...other props
+  className: "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+});
+```
+
+Some components also expose specific style props like `backgroundColor` for convenience.
+
+### Overriding Global Styles
+The library's styles are scoped to avoid conflicts, but you can override them in your GHL "Custom CSS" settings. Ensure your styles load *after* the library's `style.css` or use higher specificity.
+
+```css
+/* Example: Force a specific font on all headers */
+.ghl-component-header {
+  font-family: 'Open Sans', sans-serif !important;
+}
+```
+
+---
+
+## 💡 Common Use Cases
+
+Here are some frequent implementation patterns:
+
+### Minimal Header with CTA
+A simple navigation bar with a logo and a call-to-action button.
+
+```javascript
+window.GHLComponents.render('Header', 'header-container', {
+  logo: "https://your-site.com/logo.png",
+  menuItems: [
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/services" },
+    { label: "Contact", href: "/contact" }
+  ],
+  ctaText: "Get a Quote",
+  ctaLink: "/quote"
+});
+```
+
+### High-Conversion CTA Section
+A focused block to drive user action, often placed at the bottom of a page.
+
+```javascript
+window.GHLComponents.render('CTA', 'cta-container', {
+  headline: "Ready to Scale Your Business?",
+  description: "Join over 500 agencies using our tools today.",
+  ctaText: "Start Your Free Trial",
+  ctaLink: "/signup",
+  backgroundColor: "bg-indigo-600"
+});
+```
 
 ---
 
@@ -154,17 +259,23 @@ Property of **Caiçara Marketing Digital**. Unauthorized reproduction or distrib
 
 ## 🔧 Troubleshooting
 
-### Component Not Rendering?
-1. Check the browser console (F12) for errors.
-2. Ensure `React` and `ReactDOM` are loaded **before** the component library.
-3. Verify the `id` in your HTML matches the one passed to `render()`.
+### Component Not Rendering
+- **Check Console**: Open F12 developer tools and look for red errors in the Console tab.
+- **Check Dependencies**: Ensure `React` and `ReactDOM` are loaded **before** `components.js`.
+- **Verify ID**: The element ID passed to `window.GHLComponents.render('...', 'my-id', ...)` must match `<div id="my-id"></div>`.
 
-### Styles Not Applying?
-1. Check if `style.css` is loaded in the Network tab.
-2. Ensure no GHL native styles are overriding the component classes (use `!important` in Tailwind config if necessary, or specific selectors).
+### Styles Not Applying
+- **Check CSS Load**: Verify `style.css` is loaded in the Network tab.
+- **Specificity Issues**: GHL's native CSS might be overriding styles. Use the `!important` modifier in your `className` prop if necessary (e.g., `!bg-blue-500`).
+- **Cache**: Clear your browser cache or GHL's cache if updates aren't reflecting.
 
-### Build Errors?
-- If you see Rollup errors on Windows, ensure you are using **pnpm** instead of npm.
+### Icons Not Showing
+- **Valid Names**: Ensure you are using valid Lucide icon names (PascalCase, e.g., `ArrowRight`, not `arrow-right`).
+- **React Node**: If passing a custom element, ensure it's a valid React node.
+
+### Build Errors
+- **Windows Users**: If you encounter Rollup errors, please use **pnpm** as recommended.
+- **Node Version**: Ensure you are running Node 18+.
 
 ---
 *Maintained by Matheus Prol*
